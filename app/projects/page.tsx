@@ -87,6 +87,8 @@ const Projects = () => {
               <Image
                 src={project.bannerImage}
                 alt={project.title}
+                width={1000}
+                height={1000}
                 className="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
@@ -128,6 +130,8 @@ const Projects = () => {
                 <Image
                   src={selectedProject.bannerImage}
                   alt={selectedProject.title}
+                  width={1000}
+                  height={1000}
                   className="w-full h-64 object-cover rounded-t-lg"
                 />
 
@@ -178,6 +182,8 @@ const Projects = () => {
                       <Image
                         key={idx}
                         src={img}
+                        width={1000}
+                        height={1000}
                         alt={`${selectedProject.title} ${idx + 1}`}
                         className="w-full sm:w-48 h-40 object-cover rounded-md flex-shrink-0"
                       />
