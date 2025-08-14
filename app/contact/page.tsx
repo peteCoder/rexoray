@@ -105,7 +105,9 @@ const Contact = () => {
 
         {/* Let's Talk */}
         <div>
-          <h2 className="text-xl font-bold mb-4 dark:text-white">LET’S TALK</h2>
+          <h2 className="text-xl font-bold mb-4 dark:text-white">
+            LET&aposS TALK
+          </h2>
           <p className="text-gray-600 dark:text-gray-300">
             Feel free to talk to our representative at any time. Use the contact
             form or any of our contact numbers. We’re happy to help you build

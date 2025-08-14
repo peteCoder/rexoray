@@ -213,7 +213,7 @@ const About = () => {
       {/* Call to Action */}
       <section className="py-16 px-6 bg-primary text-white text-center">
         <h2 className="text-3xl font-bold mb-4">
-          Let's Build the Future Together
+          Let&aposs Build the Future Together
         </h2>
         <p className="max-w-2xl mx-auto mb-6 text-lg">
           Partner with REXORAY ACE LTD today and experience unmatched
