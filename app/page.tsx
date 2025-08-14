@@ -1,103 +1,126 @@
 import Image from "next/image";
 
+import Heading from "@/components/main/Heading";
+import HomeCarousel from "@/components/main/HomeCarousel";
+
+import ProjectsSection from "@/components/main/ProjectsSection";
+import ServicesSection from "@/components/main/ServicesSection";
+import { Button } from "@/components/ui/button";
+
+import AboutImage from "@/assets/about_rexoray.webp";
+import CertificateOfIncorporation from "@/assets/rexoray_icoporation_cert.png";
+
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <>
+      <HomeCarousel />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+      {/* About Section */}
+      <section className="py-6 md:py-16 px-6 bg-gray-50 dark:bg-gray-900">
+        <Heading
+          title="About Us"
+          text="Driving innovation and excellence across industries"
+        />
+
+        <div className="container mx-auto mt-10 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+          {/* About Image */}
+          <div className="w-full h-full">
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+              src={AboutImage}
+              alt="About REXORAY ACE"
+              className="w-full rounded-lg shadow-lg"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          </div>
+
+          {/* About Text */}
+          <div>
+            <h3 className="text-2xl md:text-3xl font-bold mb-4 dark:text-white">
+              Building a Better Future
+            </h3>
+            <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed text-sm md:text-lg">
+              Incorporated in 2024, <strong>REXORAY ACE LTD</strong> is a
+              dynamic, diversified company headquartered in Abuja, Nigeria.
+              Operating across sectors including general contracting, petroleum
+              marketing, manufacturing, agriculture, transportation, and event
+              management, we are committed to delivering exceptional services
+              with integrity, professionalism, and innovation.
+            </p>
+            <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed text-sm md:text-lg">
+              Guided by a vision to be a leading service provider in Nigeria and
+              beyond, we continually invest in people, technology, and processes
+              to ensure sustainable growth while exceeding client expectations.
+            </p>
+            <Button asChild className="rounded-full">
+              <a
+                href="/about"
+                className="inline-block bg-primary px-6 py-6 rounded-full font-semibold shadow transition"
+              >
+                Learn More
+              </a>
+            </Button>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </section>
+
+      {/* Incorporation & Trust Section */}
+      <section className="py-6 md:py-16 px-6 bg-white dark:bg-gray-800">
+        <Heading
+          title="Our Incorporation"
+          text="Recognized and trusted in the business landscape"
+        />
+        <div className="container mx-auto mt-10 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+          {/* Certificate Image */}
+          <div className="flex justify-center">
+            <Image
+              src={CertificateOfIncorporation}
+              alt="Certificate of Incorporation"
+              className="max-w-md w-full rounded-lg shadow-lg border dark:border-gray-700"
+            />
+          </div>
+
+          {/* Trust Text */}
+          <div>
+            <h3 className="text-2xl md:text-3xl font-bold mb-4 dark:text-white">
+              Why You Can Trust REXORAY ACE
+            </h3>
+            <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed text-sm md:text-lg">
+              Our incorporation is a testament to our commitment to
+              transparency, compliance, and professionalism. As a registered
+              private limited liability company, we operate under the highest
+              standards of corporate governance.
+            </p>
+            <ul className="space-y-3 text-gray-700 dark:text-gray-300 text-sm md:text-lg">
+              <li className="flex items-start gap-3">
+                <span className="text-primary font-bold">✓</span>
+                Legally registered and recognized by the Corporate Affairs
+                Commission of Nigeria.
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-primary font-bold">✓</span>
+                Proven track record in multiple industries.
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-primary font-bold">✓</span>
+                Commitment to delivering quality and exceeding client
+                expectations.
+              </li>
+            </ul>
+            <Button asChild className="rounded-full">
+              <a
+                href="https://drive.google.com/uc?export=download&id=13A1U4y-4Dy7Y3Ah_NR2SDI5dEJLLbjU6"
+                download
+                className="mt-6 inline-block bg-primary px-6 py-6 rounded-full font-semibold shadow transition"
+              >
+                Download Company Profile
+              </a>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      <ServicesSection />
+
+      <ProjectsSection />
+    </>
   );
 }
