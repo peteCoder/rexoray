@@ -159,9 +159,11 @@ const About = () => {
               >
                 {/* Portrait Image */}
                 <div className="relative w-full h-[28rem] overflow-hidden">
-                  <img
+                  <Image
                     src={member.image}
                     alt={member.name}
+                    width={1000}
+                    height={1000}
                     className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-300"
                   />
                   {/* Hover Overlay with Social Icons */}

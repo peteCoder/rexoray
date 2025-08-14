@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
+import Image from "next/image";
 
 type Project = {
   id: number;
@@ -83,7 +84,7 @@ const Projects = () => {
               className="relative overflow-hidden rounded-lg shadow-lg cursor-pointer group"
               onClick={() => setSelectedProject(project)}
             >
-              <img
+              <Image
                 src={project.bannerImage}
                 alt={project.title}
                 className="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500"
@@ -124,7 +125,7 @@ const Projects = () => {
                 </button>
 
                 {/* Banner Image */}
-                <img
+                <Image
                   src={selectedProject.bannerImage}
                   alt={selectedProject.title}
                   className="w-full h-64 object-cover rounded-t-lg"
@@ -174,7 +175,7 @@ const Projects = () => {
                   {/* Image gallery */}
                   <div className="flex flex-col sm:flex-row sm:gap-4 gap-3 overflow-x-hidden sm:overflow-x-hidden pb-4">
                     {selectedProject.images.map((img, idx) => (
-                      <img
+                      <Image
                         key={idx}
                         src={img}
                         alt={`${selectedProject.title} ${idx + 1}`}
