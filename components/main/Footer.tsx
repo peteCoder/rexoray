@@ -24,14 +24,12 @@ const Footer = () => {
             industries, from construction to energy, agriculture, and more.
           </p>
         </div>
-
-        {/* Contact Info */}
         <div>
           <h3 className="text-lg font-semibold mb-4 dark:text-white">
             Contact Us
           </h3>
           <p className="text-gray-400 dark:text-gray-300 text-sm">
-            No. 123 Business Avenue, Abuja, Nigeria
+            Number 6, Philip Shaibu, Wuye, Abuja, FCT.
           </p>
           <p className="text-gray-400 dark:text-gray-300 text-sm mt-2">
             Email:{" "}

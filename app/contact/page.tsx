@@ -2,6 +2,7 @@
 
 import Heading from "@/components/main/Heading";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 import {
   Form,
   FormField,
@@ -14,6 +15,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 
 // Zod schema for validation
 const contactSchema = z.object({
@@ -26,6 +28,9 @@ const contactSchema = z.object({
 type ContactFormValues = z.infer<typeof contactSchema>;
 
 const Contact = () => {
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState<null | string>(null);
+
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
@@ -36,9 +41,31 @@ const Contact = () => {
     },
   });
 
-  const onSubmit = (data: ContactFormValues) => {
-    console.log("Form Submitted:", data);
-    // Add your form submission logic here
+  const onSubmit = async (data: ContactFormValues) => {
+    try {
+      setLoading(true);
+      setStatus(null);
+
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to send message");
+      }
+
+      setStatus("✅ Message sent successfully!");
+      toast("✅ Message sent successfully!");
+      form.reset();
+    } catch (error) {
+      console.error(error);
+      setStatus("❌ Failed to send message. Please try again.");
+      toast("❌ Failed to send message. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -72,32 +99,16 @@ const Contact = () => {
         <div>
           <h2 className="text-xl font-bold mb-4 dark:text-white">FOLLOW US</h2>
           <div className="flex space-x-4">
-            <a
-              href="#"
-              aria-label="Facebook"
-              className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
-            >
+            <a href="#" className="text-blue-600 dark:text-blue-400">
               Facebook
             </a>
-            <a
-              href="#"
-              aria-label="Twitter"
-              className="text-sky-500 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300"
-            >
+            <a href="#" className="text-sky-500 dark:text-sky-400">
               Twitter
             </a>
-            <a
-              href="#"
-              aria-label="Instagram"
-              className="text-pink-500 hover:text-pink-700 dark:text-pink-400 dark:hover:text-pink-300"
-            >
+            <a href="#" className="text-pink-500 dark:text-pink-400">
               Instagram
             </a>
-            <a
-              href="#"
-              aria-label="LinkedIn"
-              className="text-blue-700 hover:text-blue-900 dark:text-blue-500 dark:hover:text-blue-400"
-            >
+            <a href="#" className="text-blue-700 dark:text-blue-500">
               LinkedIn
             </a>
           </div>
@@ -205,10 +216,17 @@ const Contact = () => {
               {/* Submit Button */}
               <Button
                 type="submit"
+                disabled={loading}
                 className="text-white px-6 rounded-md md:col-span-2 py-4 md:py-6 transition"
               >
-                SEND MESSAGE
+                {loading ? "Sending..." : "SEND MESSAGE"}
               </Button>
+
+              {status && (
+                <p className="md:col-span-2 text-center mt-4 text-sm">
+                  {status}
+                </p>
+              )}
             </form>
           </Form>
         </div>

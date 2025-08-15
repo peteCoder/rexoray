@@ -21,9 +21,12 @@ import { ModeToggle } from "./mode-toggler";
 const Navbar = () => {
   const [isOpenTop, setIsOpenTop] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showSticky, setShowSticky] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
   const menuRef = useRef<HTMLDivElement>(null);
 
-  // Close menu on outside click
+  // Close mobile menu on outside click
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
@@ -38,36 +41,57 @@ const Navbar = () => {
     };
   }, [isMobileMenuOpen]);
 
+  // Detect scroll direction to show/hide sticky bottom navbar
+  useEffect(() => {
+    const controlNavbar = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY <= 100) {
+        // Near the top — go back to original position
+        setShowSticky(false);
+      } else if (currentScrollY < lastScrollY) {
+        // Scrolling up — show sticky navbar
+        setShowSticky(true);
+      } else if (currentScrollY > lastScrollY) {
+        // Scrolling down — hide sticky navbar
+        setShowSticky(false);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", controlNavbar);
+    return () => {
+      window.removeEventListener("scroll", controlNavbar);
+    };
+  }, [lastScrollY]);
+
   return (
     <div className="relative">
-      {/* Mobile Menu */}
+      {/* MOBILE MENU */}
       <div
         ref={menuRef}
         className={`fixed top-0 left-0 w-[80%] sm:w-[300px] bg-white dark:bg-gray-900 h-screen z-[2000] transform transition-transform duration-300 ease-in-out shadow-lg
         ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
-        {/* Header Bar */}
+        {/* Header */}
         <div className="flex items-center justify-between p-4 border-b dark:border-gray-700">
-          <div className="block dark:hidden">
-            <Image
-              src={LogoDark}
-              alt="Rexoray Logo"
-              width={120}
-              height={40}
-              className="h-10 w-auto block md:hidden dark:hidden"
-              priority
-            />
-          </div>
-          <div className="hidden dark:block">
-            <Image
-              src={LogoLight}
-              width={120}
-              height={40}
-              alt="Rexoray Logo"
-              className="h-10 w-auto block md:hidden"
-              priority
-            />
-          </div>
+          <Image
+            src={LogoDark}
+            alt="Rexoray Logo"
+            width={120}
+            height={40}
+            className="h-10 w-auto block dark:hidden"
+            priority
+          />
+          <Image
+            src={LogoLight}
+            alt="Rexoray Logo"
+            width={120}
+            height={40}
+            className="h-10 w-auto hidden dark:block"
+            priority
+          />
           <button
             onClick={() => setIsMobileMenuOpen(false)}
             className="text-gray-600 dark:text-gray-300 hover:text-primary transition"
@@ -76,7 +100,7 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Menu Links */}
+        {/* Links */}
         <nav className="flex flex-col gap-4 px-6 py-6 text-base font-medium text-gray-800 dark:text-gray-200">
           {["/", "/about", "/projects", "/contact"].map((path, i) => (
             <Link
@@ -90,30 +114,27 @@ const Navbar = () => {
           ))}
         </nav>
 
-        {/* Social Icons */}
+        {/* Social */}
         <div className="mt-auto px-6 py-4 border-t dark:border-gray-700">
           <div className="flex justify-center gap-4 text-gray-500 dark:text-gray-400">
-            <a href="#">
-              <FaFacebook size={20} className="hover:text-primary" />
-            </a>
-            <a href="#">
-              <FaGooglePlusG size={20} className="hover:text-primary" />
-            </a>
-            <a href="#">
-              <FaInstagram size={20} className="hover:text-primary" />
-            </a>
-            <a href="#">
-              <FaTwitter size={20} className="hover:text-primary" />
-            </a>
-            <a href="#">
-              <FaWhatsapp size={20} className="hover:text-primary" />
-            </a>
+            {[
+              FaFacebook,
+              FaGooglePlusG,
+              FaInstagram,
+              FaTwitter,
+              FaWhatsapp,
+            ].map((Icon, i) => (
+              <a href="#" key={i}>
+                <Icon size={20} className="hover:text-primary" />
+              </a>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Top Navbar Accordion */}
+      {/* TOP NAVBAR */}
       <div className="bg-[#292929] dark:bg-gray-950 text-[#7d7d7d] dark:text-gray-400">
+        {/* Mobile toggle */}
         <div className="container mx-auto p-2 flex justify-center items-center md:hidden">
           <button onClick={() => setIsOpenTop(!isOpenTop)} className="p-1">
             <ChevronDown
@@ -124,24 +145,21 @@ const Navbar = () => {
             />
           </button>
         </div>
-        {/* Desktop top navbar */}
+
+        {/* Desktop */}
         <div className="hidden md:flex container mx-auto p-2 items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <a href="#">
-              <FaFacebook size={17} />
-            </a>
-            <a href="#">
-              <FaGooglePlusG size={17} />
-            </a>
-            <a href="#">
-              <FaInstagram size={17} />
-            </a>
-            <a href="#">
-              <FaTwitter size={17} />
-            </a>
-            <a href="#">
-              <FaWhatsapp size={17} />
-            </a>
+            {[
+              FaFacebook,
+              FaGooglePlusG,
+              FaInstagram,
+              FaTwitter,
+              FaWhatsapp,
+            ].map((Icon, i) => (
+              <a href="#" key={i}>
+                <Icon size={17} />
+              </a>
+            ))}
           </div>
           <div className="flex items-center gap-1">
             <IoCall size={17} />
@@ -156,25 +174,22 @@ const Navbar = () => {
             <span className="text-sm">rex.Uku@rexoray.com</span>
           </div>
         </div>
-        {/* Mobile Accordion Content */}
+
+        {/* Mobile accordion content */}
         {isOpenTop && (
           <div className="flex flex-col gap-3 p-2 md:hidden text-center">
             <div className="flex justify-center gap-3">
-              <a href="#">
-                <FaFacebook size={17} />
-              </a>
-              <a href="#">
-                <FaGooglePlusG size={17} />
-              </a>
-              <a href="#">
-                <FaInstagram size={17} />
-              </a>
-              <a href="#">
-                <FaTwitter size={17} />
-              </a>
-              <a href="#">
-                <FaWhatsapp size={17} />
-              </a>
+              {[
+                FaFacebook,
+                FaGooglePlusG,
+                FaInstagram,
+                FaTwitter,
+                FaWhatsapp,
+              ].map((Icon, i) => (
+                <a href="#" key={i}>
+                  <Icon size={17} />
+                </a>
+              ))}
             </div>
             <div className="flex justify-center items-center gap-1">
               <IoCall size={17} />
@@ -186,13 +201,13 @@ const Navbar = () => {
             </div>
             <div className="flex justify-center items-center gap-1">
               <IoIosMail size={17} />
-              <span className="text-sm">Uku.raynald@rexoray.com</span>
+              <span className="text-sm">rex.Uku@rexoray.com</span>
             </div>
           </div>
         )}
       </div>
 
-      {/* Middle Navbar (Desktop) */}
+      {/* MIDDLE NAVBAR (Desktop only) */}
       <div className="p-3 bg-[#363636] dark:bg-gray-900 text-[#7d7d7d] dark:text-gray-300 min-h-[60px] hidden md:block text-sm">
         <div className="container mx-auto p-2">
           <div className="flex justify-between items-center gap-1">
@@ -228,30 +243,32 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Bottom Navbar */}
-      <div className="p-3 bg-[#f2f2f2] dark:bg-gray-800 min-h-[60px] sticky top-0">
+      {/* BOTTOM NAVBAR */}
+      <div
+        className={`p-3 bg-[#f2f2f2] dark:bg-gray-800 min-h-[60px] transition-all duration-300 ${
+          showSticky
+            ? "fixed top-0 left-0 w-full z-[999] shadow-md"
+            : "relative"
+        }`}
+      >
         <div className="container mx-auto">
           <div className="flex justify-between items-center p-2">
-            <div className="block dark:hidden">
-              <Image
-                src={LogoDark}
-                alt="Rexoray Logo"
-                width={120}
-                height={40}
-                className="h-10 w-auto block md:hidden dark:hidden"
-                priority
-              />
-            </div>
-            <div className="hidden dark:block">
-              <Image
-                width={120}
-                height={40}
-                src={LogoLight}
-                alt="Rexoray Logo"
-                className="h-10 w-auto block md:hidden"
-                priority
-              />
-            </div>
+            <Image
+              src={LogoDark}
+              alt="Rexoray Logo"
+              width={120}
+              height={40}
+              className="h-10 w-auto block md:hidden dark:hidden"
+              priority
+            />
+            <Image
+              width={120}
+              height={40}
+              src={LogoLight}
+              alt="Rexoray Logo"
+              className="h-10 w-auto hidden md:hidden dark:block"
+              priority
+            />
 
             <ModeToggle />
             {/* Hamburger */}
@@ -294,6 +311,9 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+
+      {/* Spacer when sticky */}
+      {showSticky && <div className="h-[76px]"></div>}
     </div>
   );
 };

@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import {
   FaFacebookF,
   FaLinkedinIn,
@@ -10,27 +11,38 @@ import { Button } from "@/components/ui/button";
 import AboutImage from "@/assets/about_rexoray.webp";
 import Image from "next/image";
 
+type TeamMember = {
+  _id: string;
+  name: string;
+  position: string;
+  image: string;
+  socials: {
+    facebook?: string;
+    linkedin?: string;
+    twitter?: string;
+    instagram?: string;
+  };
+};
+
 const About = () => {
-  const team = [
-    {
-      name: "Raynald Uku",
-      position: "Chief Executive Officer",
-      image: "/team_1.webp",
-      socials: { facebook: "#", linkedin: "#", twitter: "#", instagram: "#" },
-    },
-    {
-      name: "Samantha James",
-      position: "Head of Operations",
-      image: "/team_2.webp",
-      socials: { facebook: "#", linkedin: "#", twitter: "#", instagram: "#" },
-    },
-    {
-      name: "Angela Jacobs",
-      position: "Lead Engineer",
-      image: "/team_3.webp",
-      socials: { facebook: "#", linkedin: "#", twitter: "#", instagram: "#" },
-    },
-  ];
+  const [team, setTeam] = useState<TeamMember[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTeam = async () => {
+      try {
+        const res = await fetch("/api/teams", { cache: "no-store" });
+        if (!res.ok) throw new Error("Failed to fetch team data");
+        const data = await res.json();
+        setTeam(data);
+      } catch (error) {
+        console.error("Error fetching team:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchTeam();
+  }, []);
 
   return (
     <>
@@ -151,61 +163,87 @@ const About = () => {
           <h2 className="text-3xl font-bold mb-8 dark:text-white">
             Meet Our Team
           </h2>
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
-            {team.map((member, idx) => (
-              <div
-                key={idx}
-                className="relative group bg-gray-50 dark:bg-gray-900 rounded-lg overflow-hidden shadow hover:shadow-lg transition"
-              >
-                {/* Portrait Image */}
-                <div className="relative w-full h-[28rem] overflow-hidden">
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    width={1000}
-                    height={1000}
-                    className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-300"
-                  />
-                  {/* Hover Overlay with Social Icons */}
-                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-4 transition">
-                    <a
-                      href={member.socials.facebook}
-                      className="text-white hover:text-primary"
-                    >
-                      <FaFacebookF size={22} />
-                    </a>
-                    <a
-                      href={member.socials.linkedin}
-                      className="text-white hover:text-primary"
-                    >
-                      <FaLinkedinIn size={22} />
-                    </a>
-                    <a
-                      href={member.socials.twitter}
-                      className="text-white hover:text-primary"
-                    >
-                      <FaTwitter size={22} />
-                    </a>
-                    <a
-                      href={member.socials.instagram}
-                      className="text-white hover:text-primary"
-                    >
-                      <FaInstagram size={22} />
-                    </a>
-                  </div>
-                </div>
 
-                {/* Name & Position */}
-                <div className="p-4 text-center">
-                  <h3 className="text-lg font-semibold dark:text-white">
-                    {member.name}
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    {member.position}
-                  </p>
-                </div>
-              </div>
-            ))}
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
+            {loading
+              ? // Skeleton loader - same structure as team cards
+                [...Array(3)].map((_, idx) => (
+                  <div
+                    key={idx}
+                    className="relative bg-gray-50 dark:bg-gray-900 rounded-lg overflow-hidden shadow"
+                  >
+                    {/* Image skeleton */}
+                    <div className="w-full h-[28rem] bg-gray-300 dark:bg-gray-700 animate-pulse"></div>
+                    {/* Name & position skeleton */}
+                    <div className="p-4 text-center">
+                      <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-3/4 mx-auto mb-3 animate-pulse"></div>
+                      <div className="h-3 bg-gray-300 dark:bg-gray-700 rounded w-1/2 mx-auto animate-pulse"></div>
+                    </div>
+                  </div>
+                ))
+              : // Actual team cards
+                team.map((member) => (
+                  <div
+                    key={member._id}
+                    className="relative group bg-gray-50 dark:bg-gray-900 rounded-lg overflow-hidden shadow hover:shadow-lg transition"
+                  >
+                    {/* Portrait Image */}
+                    <div className="relative w-full h-[28rem] overflow-hidden">
+                      <Image
+                        src={member.image}
+                        alt={member.name}
+                        width={1000}
+                        height={1000}
+                        className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-300"
+                      />
+                      {/* Hover Overlay with Social Icons */}
+                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-4 transition">
+                        {member.socials.facebook && (
+                          <a
+                            href={member.socials.facebook}
+                            className="text-white hover:text-primary"
+                          >
+                            <FaFacebookF size={22} />
+                          </a>
+                        )}
+                        {member.socials.linkedin && (
+                          <a
+                            href={member.socials.linkedin}
+                            className="text-white hover:text-primary"
+                          >
+                            <FaLinkedinIn size={22} />
+                          </a>
+                        )}
+                        {member.socials.twitter && (
+                          <a
+                            href={member.socials.twitter}
+                            className="text-white hover:text-primary"
+                          >
+                            <FaTwitter size={22} />
+                          </a>
+                        )}
+                        {member.socials.instagram && (
+                          <a
+                            href={member.socials.instagram}
+                            className="text-white hover:text-primary"
+                          >
+                            <FaInstagram size={22} />
+                          </a>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Name & Position */}
+                    <div className="p-4 text-center">
+                      <h3 className="text-lg font-semibold dark:text-white">
+                        {member.name}
+                      </h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                        {member.position}
+                      </p>
+                    </div>
+                  </div>
+                ))}
           </div>
         </div>
       </section>
