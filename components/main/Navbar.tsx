@@ -253,22 +253,24 @@ const Navbar = () => {
       >
         <div className="container mx-auto">
           <div className="flex justify-between items-center p-2">
-            <Image
-              src={LogoDark}
-              alt="Rexoray Logo"
-              width={120}
-              height={40}
-              className="h-10 w-auto block md:hidden dark:hidden"
-              priority
-            />
-            <Image
-              width={120}
-              height={40}
-              src={LogoLight}
-              alt="Rexoray Logo"
-              className="h-10 w-auto hidden md:hidden dark:block"
-              priority
-            />
+            <div className="block md:hidden">
+              <Image
+                src={LogoDark}
+                alt="Rexoray Logo Dark"
+                width={120}
+                height={40}
+                className="h-10 w-auto block md:hidden dark:hidden"
+                priority
+              />
+              <Image
+                width={120}
+                height={40}
+                src={LogoLight}
+                alt="Rexoray Logo Light"
+                className="h-10 w-auto hidden md:hidden dark:block"
+                priority
+              />
+            </div>
 
             <ModeToggle />
             {/* Hamburger */}
