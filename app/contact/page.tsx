@@ -74,7 +74,7 @@ const Contact = () => {
       <div className="w-full h-[400px]">
         <iframe
           title="Rexoray Ace Limited Business Location"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.075477496987!2d7.4347437723469145!3d9.056880091005567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104e758c845d1a1b%3A0xd50f1e59a21eefa5!2s6%20Philip%20Shaibu%20Cres%2C%20Utako%2C%20Abuja%20900108%2C%20Federal%20Capital%20Territory!5e0!3m2!1sen!2sng!4v1755271235978!5m2!1sen!2sng"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31521.460498819393!2d7.422070586453485!3d9.047105824933572!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104e0b49e48361c5%3A0x85bebb7d86e0debe!2sWuye%2C%20Abuja%20900108%2C%20Federal%20Capital%20Territory!5e0!3m2!1sen!2sng!4v1755391935495!5m2!1sen!2sng"
           className="w-full h-full border-0"
           allowFullScreen={true}
           loading="lazy"
