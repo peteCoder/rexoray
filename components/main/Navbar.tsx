@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { companyInfo } from "@/lib/utils";
 import {
   FaFacebook,
   FaInstagram,
@@ -163,15 +164,15 @@ const Navbar = () => {
           </div>
           <div className="flex items-center gap-1">
             <IoCall size={17} />
-            <span className="text-sm">+2347014270059</span>
+            <span className="text-sm">{companyInfo.phoneNumber}</span>
           </div>
           <div className="flex items-center gap-1">
             <MdAccessTime size={17} />
-            <span className="text-sm">Mon - Sat: 7:00 - 17:00</span>
+            <span className="text-sm">{companyInfo.workDays}</span>
           </div>
           <div className="flex items-center gap-1">
             <IoIosMail size={17} />
-            <span className="text-sm">rex.Uku@rexoray.com</span>
+            <span className="text-sm">{companyInfo.emails[0]}</span>
           </div>
         </div>
 
@@ -193,15 +194,15 @@ const Navbar = () => {
             </div>
             <div className="flex justify-center items-center gap-1">
               <IoCall size={17} />
-              <span className="text-sm">+2347014270059</span>
+              <span className="text-sm">{companyInfo.phoneNumber}</span>
             </div>
             <div className="flex justify-center items-center gap-1">
               <MdAccessTime size={17} />
-              <span className="text-sm">Mon - Sat: 9:00am - 5:00pm</span>
+              <span className="text-sm">{companyInfo.workDays}</span>
             </div>
             <div className="flex justify-center items-center gap-1">
               <IoIosMail size={17} />
-              <span className="text-sm">rex.Uku@rexoray.com</span>
+              <span className="text-sm">{companyInfo.emails[1]}</span>
             </div>
           </div>
         )}
@@ -221,22 +222,20 @@ const Navbar = () => {
             />
             <div className="flex flex-row gap-4">
               <div className="flex flex-col gap-2">
-                <span className="text-[#d6d6d6] dark:text-gray-200">
-                  Number 6, Philip Shaibu,
-                </span>
-                <span>Wuye, Abuja, FCT.</span>
+                <span className="text-[#d6d6d6] dark:text-gray-200">Address</span>
+                <span>{companyInfo.address}</span>
               </div>
               <div className="flex flex-col gap-2">
                 <span className="text-[#d6d6d6] dark:text-gray-200">
                   Call us anytime
                 </span>
-                <span>+2347014270059</span>
+                <span>{companyInfo.phoneNumber}</span>
               </div>
               <div className="flex flex-col gap-2">
                 <span className="text-[#d6d6d6] dark:text-gray-200">
                   Send us a mail
                 </span>
-                <span>Uku.raynald@rexoray.com</span>
+                <span>{companyInfo.emails[0]}</span>
               </div>
             </div>
           </div>

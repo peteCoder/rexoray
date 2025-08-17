@@ -9,6 +9,8 @@ import {
   FaGooglePlusG,
 } from "react-icons/fa";
 
+import { companyInfo } from "@/lib/utils";
+
 import LogoLight from "@/assets/logo_light.png";
 import Image from "next/image";
 
@@ -29,7 +31,7 @@ const Footer = () => {
             Contact Us
           </h3>
           <p className="text-gray-400 dark:text-gray-300 text-sm">
-            Number 6, Philip Shaibu, Wuye, Abuja, FCT.
+            {companyInfo.address}
           </p>
           <p className="text-gray-400 dark:text-gray-300 text-sm mt-2">
             Email:{" "}
@@ -37,11 +39,11 @@ const Footer = () => {
               href="mailto:info@rexorayace.com"
               className="hover:text-primary transition"
             >
-              rex.Uku@rexoray.com
+              {companyInfo.emails[0]}
             </a>
           </p>
           <p className="text-gray-400 dark:text-gray-300 text-sm mt-2">
-            Phone: +2347014270059
+            Phone: {companyInfo.phoneNumber}
           </p>
         </div>
 
@@ -93,35 +95,35 @@ const Footer = () => {
           </h3>
           <div className="flex space-x-4">
             <a
-              href="https://facebook.com"
+              href={companyInfo.socialMedia.facebook}
               target="_blank"
               className="bg-white/10 dark:bg-gray-700 p-2 rounded-full hover:bg-primary transition"
             >
               <FaFacebook size={20} />
             </a>
             <a
-              href="https://twitter.com"
+              href={companyInfo.socialMedia.instagram}
               target="_blank"
               className="bg-white/10 dark:bg-gray-700 p-2 rounded-full hover:bg-primary transition"
             >
               <FaInstagram size={20} />
             </a>
             <a
-              href="https://instagram.com"
+              href={companyInfo.socialMedia.twitter}
               target="_blank"
               className="bg-white/10 dark:bg-gray-700 p-2 rounded-full hover:bg-primary transition"
             >
               <FaTwitter size={20} />
             </a>
             <a
-              href="https://linkedin.com"
+              href={companyInfo.socialMedia.linkedin}
               target="_blank"
               className="bg-white/10 dark:bg-gray-700 p-2 rounded-full hover:bg-primary transition"
             >
               <FaWhatsapp size={20} />
             </a>
             <a
-              href="https://mail.google.com"
+              href={companyInfo.socialMedia.gmail}
               target="_blank"
               className="bg-white/10 dark:bg-gray-700 p-2 rounded-full hover:bg-primary transition"
             >

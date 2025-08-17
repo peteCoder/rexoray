@@ -1,5 +1,5 @@
 "use client";
-
+import { companyInfo } from "@/lib/utils";
 import Heading from "@/components/main/Heading";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -87,28 +87,38 @@ const Contact = () => {
         <div>
           <h2 className="text-xl font-bold mb-4 dark:text-white">CONTACT US</h2>
           <p className="font-semibold dark:text-gray-200">Rexoray Ace Ltd.</p>
-          <p className="dark:text-gray-300">
-            Number 6, Philip Shaibu, Wuye, Abuja, FCT.
-          </p>
-          <p className="dark:text-gray-300">Phone: +2347014270059</p>
-          <p className="dark:text-gray-300">Email: Uku.raynald@rexoray.com</p>
-          <p className="dark:text-gray-300">Website: www.rexoray.com</p>
+          <p className="dark:text-gray-300">{companyInfo.address}</p>
+          <p className="dark:text-gray-300">Phone: {companyInfo.phoneNumber}</p>
+          <p className="dark:text-gray-300">Email: {companyInfo.emails[0]}</p>
+          <p className="dark:text-gray-300">Website: {companyInfo.website}</p>
         </div>
 
         {/* Social Media */}
         <div>
           <h2 className="text-xl font-bold mb-4 dark:text-white">FOLLOW US</h2>
           <div className="flex space-x-4">
-            <a href="#" className="text-blue-600 dark:text-blue-400">
+            <a
+              href={companyInfo.socialMedia.facebook}
+              className="text-blue-600 dark:text-blue-400"
+            >
               Facebook
             </a>
-            <a href="#" className="text-sky-500 dark:text-sky-400">
+            <a
+              href={companyInfo.socialMedia.twitter}
+              className="text-sky-500 dark:text-sky-400"
+            >
               Twitter
             </a>
-            <a href="#" className="text-pink-500 dark:text-pink-400">
+            <a
+              href={companyInfo.socialMedia.instagram}
+              className="text-pink-500 dark:text-pink-400"
+            >
               Instagram
             </a>
-            <a href="#" className="text-blue-700 dark:text-blue-500">
+            <a
+              href={companyInfo.socialMedia.linkedin}
+              className="text-blue-700 dark:text-blue-500"
+            >
               LinkedIn
             </a>
           </div>
