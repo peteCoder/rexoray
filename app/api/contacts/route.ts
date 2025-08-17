@@ -5,6 +5,7 @@ export const dynamic = "force-dynamic";
 
 // GET request → Fetch all contact form submissions
 export async function GET(req: NextRequest) {
+  console.log(`${req.method} ${req.url}`);
   try {
     const query = `*[_type == "contact"] | order(submittedAt desc) {
       _id,

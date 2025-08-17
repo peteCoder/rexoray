@@ -5,6 +5,7 @@ export const dynamic = "force-dynamic";
 
 // GET request → Fetch all team members from Sanity
 export async function GET(req: NextRequest) {
+  console.log(`${req.method} ${req.url}`);
   try {
     const query = `*[_type == "team"]{
       _id,

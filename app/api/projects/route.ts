@@ -5,6 +5,7 @@ import { client } from "@/lib/client";
 export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
+  console.log(`${req.method} ${req.url}`);
   try {
     const { searchParams } = new URL(req.url);
     const page = parseInt(searchParams.get("page") || "1", 10);
