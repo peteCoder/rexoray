@@ -46,8 +46,8 @@ export async function generateMetadata(props: {
             : projectBannerImage
             ? projectBannerImage
             : "",
-          width: 700,
-          height: 700,
+          width: 1000,
+          height: 1000,
         },
       ],
     },
