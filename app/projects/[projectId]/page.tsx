@@ -3,11 +3,11 @@ import { notFound } from "next/navigation";
 import { getProjectByID } from "@/actions/getProjectByID";
 import ProjectClient from "../_components/ProjectClient";
 
-// ✅ Type params as a Promise
+// Type params as a Promise
 type tParams = Promise<{ projectId: string }>;
 
 export default async function ProjectDetails(props: { params: tParams }) {
-  const { projectId } = await props.params; // ✅ works
+  const { projectId } = await props.params;
 
   console.log("Main: ", projectId);
 
