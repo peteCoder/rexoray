@@ -1,5 +1,3 @@
-import React from "react";
-
 const Loading = () => {
   return (
     <section className="py-16 bg-gray-50 dark:bg-gray-900">

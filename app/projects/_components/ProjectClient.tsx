@@ -149,9 +149,12 @@ const ProjectClient = ({ project }: { project: Project }) => {
         {/* Image Gallery */}
         {project.images.length > 0 && (
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
-              Project Gallery
-            </h2>
+            <RevealOnScroll>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+                Project Gallery
+              </h2>
+            </RevealOnScroll>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
               {project.images.map((img, idx) => (
                 <RevealOnScroll key={idx}>
