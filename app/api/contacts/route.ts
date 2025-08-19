@@ -2,31 +2,32 @@ import { NextRequest, NextResponse } from "next/server";
 import { client } from "@/lib/client";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 // GET request → Fetch all contact form submissions
-export async function GET(req: NextRequest) {
-  console.log(`${req.method} ${req.url}`);
-  try {
-    const query = `*[_type == "contact"] | order(submittedAt desc) {
-      _id,
-      name,
-      subject,
-      email,
-      message,
-      submittedAt
-    }`;
+// export async function GET(req: NextRequest) {
+//   console.log(`${req.method} ${req.url}`);
+//   try {
+//     const query = `*[_type == "contact"] | order(submittedAt desc) {
+//       _id,
+//       name,
+//       subject,
+//       email,
+//       message,
+//       submittedAt
+//     }`;
 
-    const submissions = await client.fetch(query);
+//     const submissions = await client.fetch(query);
 
-    return NextResponse.json(submissions, { status: 200 });
-  } catch (error) {
-    console.error("Error fetching contact submissions:", error);
-    return NextResponse.json(
-      { message: "Failed to fetch contact submissions", error },
-      { status: 500 }
-    );
-  }
-}
+//     return NextResponse.json(submissions, { status: 200 });
+//   } catch (error) {
+//     console.error("Error fetching contact submissions:", error);
+//     return NextResponse.json(
+//       { message: "Failed to fetch contact submissions", error },
+//       { status: 500 }
+//     );
+//   }
+// }
 
 // POST request → Create a new contact form submission
 export async function POST(req: NextRequest) {
