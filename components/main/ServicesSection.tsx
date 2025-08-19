@@ -7,6 +7,7 @@ import {
   Calendar,
 } from "lucide-react";
 import Heading from "./Heading";
+import RevealOnScroll from "./RevealOnScroll";
 
 const services = [
   {
@@ -52,16 +53,19 @@ const ServicesSection = () => {
     <section id="services" className="py-16 bg-white dark:bg-gray-900">
       <div className="container mx-auto px-4 text-center">
         {/* Section Heading */}
-        <Heading
-          title="Our Services"
-          text="At REXORAY ACE LTD, we provide innovative and reliable solutions
+
+        <RevealOnScroll>
+          <Heading
+            title="Our Services"
+            text="At REXORAY ACE LTD, we provide innovative and reliable solutions
           across multiple sectors, delivering exceptional value to our clients."
-        />
+          />
+        </RevealOnScroll>
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <div
+            <RevealOnScroll
               key={index}
               className="group bg-gray-50 dark:bg-gray-800 p-8 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-transparent hover:border-primary cursor-pointer"
             >
@@ -72,7 +76,7 @@ const ServicesSection = () => {
               <p className="text-gray-600 text-sm dark:text-gray-300">
                 {service.description}
               </p>
-            </div>
+            </RevealOnScroll>
           ))}
         </div>
       </div>

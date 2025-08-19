@@ -6,6 +6,13 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 
+
+export function formatNumber(value: number | string, locale: string = "en-US"): string {
+  if (value === null || value === undefined || value === "") return "";
+  const num = typeof value === "string" ? parseFloat(value) : value;
+  return new Intl.NumberFormat(locale).format(num);
+}
+
 export const companyInfo = {
   name: "Rexoray Ace",
   address: "Wuye, Abuja.",

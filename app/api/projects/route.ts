@@ -16,6 +16,7 @@ export async function GET(req: NextRequest) {
       _id,
       title,
       description,
+      moreDescription,
       startDate,
       endDate,
       "bannerImage": bannerImage.asset->url,
@@ -23,7 +24,8 @@ export async function GET(req: NextRequest) {
       client,
       location,
       status,
-      budget
+      budget,
+      currency
     } | order(startDate desc) [${start}...${start + limit}]`;
 
     const projects = await client.fetch(query);

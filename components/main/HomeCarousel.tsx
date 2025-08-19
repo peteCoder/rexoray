@@ -16,6 +16,7 @@ import Carousel1 from "@/assets/carousel_1.webp";
 import Carousel2 from "@/assets/carousel_2.webp";
 import Carousel3 from "@/assets/carousel_3.webp";
 import Image from "next/image";
+import RevealOnScroll from "./RevealOnScroll";
 
 const slides = [
   {
@@ -67,18 +68,24 @@ const HomeCarousel = () => {
               {/* Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent dark:from-black/80 dark:to-black/30 flex items-center">
                 <div className="max-w-3xl px-6 md:px-12 lg:px-20 text-white dark:text-gray-200">
-                  <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4 leading-tight dark:text-white">
-                    {slide.title}
-                  </h2>
-                  <p className="text-sm sm:text-base md:text-lg mb-6 opacity-90 dark:opacity-80">
-                    {slide.description}
-                  </p>
-                  <Button
-                    size="lg"
-                    className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold rounded-full px-6 dark:bg-yellow-400 dark:hover:bg-yellow-500 dark:text-black"
-                  >
-                    {slide.cta}
-                  </Button>
+                  <RevealOnScroll>
+                    <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4 leading-tight dark:text-white">
+                      {slide.title}
+                    </h2>
+                  </RevealOnScroll>
+                  <RevealOnScroll>
+                    <p className="text-sm sm:text-base md:text-lg mb-6 opacity-90 dark:opacity-80">
+                      {slide.description}
+                    </p>
+                  </RevealOnScroll>
+                  <RevealOnScroll>
+                    <Button
+                      size="lg"
+                      className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold rounded-full px-6 dark:bg-yellow-400 dark:hover:bg-yellow-500 dark:text-black"
+                    >
+                      {slide.cta}
+                    </Button>
+                  </RevealOnScroll>
                 </div>
               </div>
             </CarouselItem>

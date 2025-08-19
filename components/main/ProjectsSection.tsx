@@ -5,20 +5,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-
-type Project = {
-  _id: string;
-  title: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-  bannerImage: string;
-  images: string[];
-  client?: string;
-  location?: string;
-  status?: string;
-  budget?: string;
-};
+import { Button } from "../ui/button";
+import { formatNumber } from "@/lib/utils";
+import { Project } from "@/lib/types";
+import RevealOnScroll from "./RevealOnScroll";
 
 export default function ProjectsSection() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -49,14 +39,17 @@ export default function ProjectsSection() {
   return (
     <section id="projects" className="py-16 bg-gray-50 dark:bg-gray-900">
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold uppercase mb-6 dark:text-white">
-          Our Projects
-        </h2>
-        <p className="text-gray-600 max-w-2xl mx-auto mb-12 dark:text-gray-300">
-          Explore some of our recent and notable works that showcase our
-          expertise and commitment to excellence.
-        </p>
-
+        <RevealOnScroll>
+          <h2 className="text-3xl sm:text-4xl font-bold uppercase mb-6 dark:text-white">
+            Our Projects
+          </h2>
+        </RevealOnScroll>
+        <RevealOnScroll>
+          <p className="text-gray-600 max-w-2xl mx-auto mb-12 dark:text-gray-300">
+            Explore some of our recent and notable works that showcase our
+            expertise and commitment to excellence.
+          </p>
+        </RevealOnScroll>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {loading
             ? [...Array(3)].map((_, i) => (
@@ -72,45 +65,48 @@ export default function ProjectsSection() {
                 </div>
               ))
             : projects.map((project) => (
-                <div
-                  key={project._id}
-                  className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg cursor-pointer group"
-                  onClick={() => setSelectedProject(project)}
-                >
-                  <div className="relative overflow-hidden">
-                    <Image
-                      src={project.bannerImage}
-                      alt={project.title}
-                      width={1000}
-                      height={1000}
-                      className="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                      <h3 className="text-white text-xl font-bold">
+                <RevealOnScroll key={project._id}>
+                  <div
+                    className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg cursor-pointer group"
+                    onClick={() => setSelectedProject(project)}
+                  >
+                    <div className="relative overflow-hidden">
+                      <Image
+                        src={project.bannerImage}
+                        alt={project.title}
+                        width={1000}
+                        height={1000}
+                        className="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                        <h3 className="text-white text-xl font-bold">
+                          {project.title}
+                        </h3>
+                      </div>
+                    </div>
+                    <div className="p-4 text-left">
+                      <h4 className="text-lg font-semibold dark:text-white mb-2">
                         {project.title}
-                      </h3>
+                      </h4>
+                      <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
+                        {project.description}
+                      </p>
                     </div>
                   </div>
-                  <div className="p-4 text-left">
-                    <h4 className="text-lg font-semibold dark:text-white mb-2">
-                      {project.title}
-                    </h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
-                      {project.description}
-                    </p>
-                  </div>
-                </div>
+                </RevealOnScroll>
               ))}
         </div>
 
         {!loading && projects.length > 0 && (
           <div className="mt-8">
-            <Link
-              href="/projects"
-              className="inline-block px-6 py-3 bg-primary text-white rounded-lg shadow-md hover:bg-primary/90 transition"
-            >
-              View More Projects
-            </Link>
+            <RevealOnScroll>
+              <Link
+                href="/projects"
+                className="inline-block px-6 py-3 bg-primary text-white rounded-lg shadow-md hover:bg-primary/90 transition"
+              >
+                View More Projects
+              </Link>
+            </RevealOnScroll>
           </div>
         )}
 
@@ -177,7 +173,9 @@ export default function ProjectsSection() {
                     )}
                     {selectedProject.budget && (
                       <p>
-                        <strong>Budget:</strong> {selectedProject.budget}
+                        <strong>Budget:</strong>{" "}
+                        <span>{selectedProject?.currency}</span>
+                        <span>{formatNumber(selectedProject.budget)}</span>
                       </p>
                     )}
                   </div>
@@ -186,17 +184,12 @@ export default function ProjectsSection() {
                     {selectedProject.description}
                   </p>
 
-                  <div className="flex flex-col sm:flex-row sm:gap-4 gap-3 overflow-x-hidden pb-4">
-                    {selectedProject.images.map((img, idx) => (
-                      <Image
-                        key={idx}
-                        src={img}
-                        width={192}
-                        height={160}
-                        alt={`${selectedProject.title} ${idx + 1}`}
-                        className="w-full sm:w-48 h-40 object-cover rounded-md flex-shrink-0"
-                      />
-                    ))}
+                  <div className="flex justify-center items-center my-5">
+                    <Button asChild>
+                      <Link href={`/projects/${selectedProject._id}`}>
+                        View to Project
+                      </Link>
+                    </Button>
                   </div>
                 </div>
               </motion.div>

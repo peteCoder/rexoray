@@ -4,20 +4,12 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
-type Project = {
-  _id: string;
-  title: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-  bannerImage: string;
-  images: string[];
-  client?: string;
-  location?: string;
-  status?: string;
-  budget?: string;
-};
+import { Project } from "@/lib/types";
+import { formatNumber } from "@/lib/utils";
+import RevealOnScroll from "@/components/main/RevealOnScroll";
 
 export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -79,7 +71,7 @@ export default function Projects() {
               ))
             : // Actual project cards
               projects.map((project) => (
-                <div
+                <RevealOnScroll
                   key={project._id}
                   className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg cursor-pointer group"
                   onClick={() => setSelectedProject(project)}
@@ -106,7 +98,7 @@ export default function Projects() {
                       {project.description}
                     </p>
                   </div>
-                </div>
+                </RevealOnScroll>
               ))}
         </div>
 
@@ -197,22 +189,19 @@ export default function Projects() {
                   )}
                   {selectedProject.budget && (
                     <p>
-                      <strong>Budget:</strong> {selectedProject.budget}
+                      <strong>Budget:</strong>{" "}
+                      <span>{selectedProject?.currency}</span>
+                      <span>{formatNumber(selectedProject.budget)}</span>
                     </p>
                   )}
                 </div>
-                {/* Image Gallery */}
-                <div className="flex flex-col sm:flex-row sm:gap-4 gap-3 overflow-x-hidden pb-4 p-6">
-                  {selectedProject.images.map((img, idx) => (
-                    <Image
-                      key={idx}
-                      src={img}
-                      width={1000}
-                      height={1000}
-                      alt={`${selectedProject.title} ${idx + 1}`}
-                      className="w-full sm:w-48 h-40 object-cover rounded-md flex-shrink-0"
-                    />
-                  ))}
+
+                <div className="flex justify-center items-center my-5">
+                  <Button asChild>
+                    <Link href={`/projects/${selectedProject._id}`}>
+                      View to Project
+                    </Link>
+                  </Button>
                 </div>
               </motion.div>
             </motion.div>
