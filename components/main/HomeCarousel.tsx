@@ -17,6 +17,7 @@ import Carousel2 from "@/assets/carousel_2.webp";
 import Carousel3 from "@/assets/carousel_3.webp";
 import Image from "next/image";
 import RevealOnScroll from "./RevealOnScroll";
+import Link from "next/link";
 
 const slides = [
   {
@@ -25,6 +26,7 @@ const slides = [
     description:
       "From infrastructure projects to architectural marvels, we bring your vision to life with unmatched expertise and quality.",
     cta: "Explore Our Projects",
+    href: "/projects",
   },
   {
     img: Carousel2,
@@ -32,6 +34,7 @@ const slides = [
     description:
       "We combine creative designs with solid engineering to deliver projects that stand the test of time.",
     cta: "View Our Services",
+    href: "#services",
   },
   {
     img: Carousel1,
@@ -39,6 +42,7 @@ const slides = [
     description:
       "Our industrial solutions and community projects transform landscapes and empower growth.",
     cta: "Contact Us Today",
+    href: "/contact",
   },
 ];
 
@@ -79,11 +83,13 @@ const HomeCarousel = () => {
                     </p>
                   </RevealOnScroll>
                   <RevealOnScroll>
-                    <Button
-                      size="lg"
-                      className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold rounded-full px-6 dark:bg-yellow-400 dark:hover:bg-yellow-500 dark:text-black"
-                    >
-                      {slide.cta}
+                    <Button size="lg" asChild>
+                      <Link
+                        className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold rounded-full px-6 dark:bg-yellow-400 dark:hover:bg-yellow-500 dark:text-black"
+                        href={slide.href}
+                      >
+                        {slide.cta}
+                      </Link>
                     </Button>
                   </RevealOnScroll>
                 </div>

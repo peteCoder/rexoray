@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
       { status: 201 }
     );
   } catch (error) {
-    console.error("❌ Contact API Error:", error);
+    console.log("Contact API Error:", error);
     return NextResponse.json(
       { message: "Failed to process contact submission", error },
       { status: 500 }
