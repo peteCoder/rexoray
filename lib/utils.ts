@@ -23,7 +23,7 @@ export const companyInfo = {
     "Raynald.uku@rexoray.com",
   ],
   website: "https://rexorayace.com",
-  workDays: "Mon - Sat 9:00am - 5:00pm",
+  workDays: "Mon - Fri 9:00am - 5:00pm",
   socialMedia: {
     facebook: "",
     twitter: "",
