@@ -48,13 +48,10 @@ const Navbar = () => {
       const currentScrollY = window.scrollY;
 
       if (currentScrollY <= 100) {
-        // Near the top — go back to original position
         setShowSticky(false);
       } else if (currentScrollY < lastScrollY) {
-        // Scrolling up — show sticky navbar
         setShowSticky(true);
       } else if (currentScrollY > lastScrollY) {
-        // Scrolling down — hide sticky navbar
         setShowSticky(false);
       }
 
@@ -80,17 +77,17 @@ const Navbar = () => {
           <Image
             src={LogoDark}
             alt="Rexoray Logo"
-            width={120}
-            height={40}
-            className="h-10 w-auto block dark:hidden"
+            width={300}
+            height={300}
+            className="h-16 sm:h-20 md:h-24 lg:h-28 w-auto block dark:hidden"
             priority
           />
           <Image
             src={LogoLight}
             alt="Rexoray Logo"
-            width={120}
-            height={40}
-            className="h-10 w-auto hidden dark:block"
+            width={300}
+            height={300}
+            className="h-16 sm:h-20 md:h-24 lg:h-28 w-auto hidden dark:block"
             priority
           />
           <button
@@ -209,20 +206,22 @@ const Navbar = () => {
       </div>
 
       {/* MIDDLE NAVBAR (Desktop only) */}
-      <div className="p-3 bg-[#363636] dark:bg-gray-900 text-[#7d7d7d] dark:text-gray-300 min-h-[60px] hidden md:block text-sm">
+      <div className="p-3 bg-[#363636] dark:bg-gray-900 text-[#7d7d7d] dark:text-gray-300 min-h-[80px] hidden md:block text-sm">
         <div className="container mx-auto p-2">
           <div className="flex justify-between items-center gap-1">
             <Image
               src={LogoLight}
-              width={120}
-              height={40}
+              width={400}
+              height={400}
               alt="Rexoray Logo"
-              className="h-10 w-auto"
+              className="h-20 md:h-28 lg:h-36 xl:h-40 w-auto"
               priority
             />
-            <div className="flex flex-row gap-4">
+            <div className="flex flex-row gap-8 text-base">
               <div className="flex flex-col gap-2">
-                <span className="text-[#d6d6d6] dark:text-gray-200">Address</span>
+                <span className="text-[#d6d6d6] dark:text-gray-200">
+                  Address
+                </span>
                 <span>{companyInfo.address}</span>
               </div>
               <div className="flex flex-col gap-2">
@@ -244,7 +243,7 @@ const Navbar = () => {
 
       {/* BOTTOM NAVBAR */}
       <div
-        className={`p-3 bg-[#f2f2f2] dark:bg-gray-800 min-h-[60px] transition-all duration-300 ${
+        className={`p-3 bg-[#f2f2f2] dark:bg-gray-800 min-h-[70px] transition-all duration-300 ${
           showSticky
             ? "fixed top-0 left-0 w-full z-[999] shadow-md"
             : "relative"
@@ -252,26 +251,27 @@ const Navbar = () => {
       >
         <div className="container mx-auto">
           <div className="flex justify-between items-center p-2">
+            {/* Mobile Logo */}
             <div className="block md:hidden">
               <Image
                 src={LogoDark}
                 alt="Rexoray Logo Dark"
-                width={120}
-                height={40}
-                className="h-10 w-auto block md:hidden dark:hidden"
+                width={300}
+                height={300}
+                className="h-16 sm:h-20 md:h-24 w-auto block md:hidden dark:hidden"
                 priority
               />
               <Image
-                width={120}
-                height={40}
+                width={300}
+                height={300}
                 src={LogoLight}
                 alt="Rexoray Logo Light"
-                className="h-10 w-auto hidden md:hidden dark:block"
+                className="h-16 sm:h-20 md:h-24 w-auto hidden md:hidden dark:block"
                 priority
               />
             </div>
 
-            <ModeToggle />
+            
             {/* Hamburger */}
             <div
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -295,7 +295,7 @@ const Navbar = () => {
             </div>
 
             {/* Desktop Menu */}
-            <div className="sm:flex items-center gap-4 ml-auto hidden">
+            <div className="sm:flex items-center gap-6 ml-auto hidden text-lg">
               <Link className="uppercase hover:text-primary" href="/">
                 Home
               </Link>
@@ -314,7 +314,7 @@ const Navbar = () => {
       </div>
 
       {/* Spacer when sticky */}
-      {showSticky && <div className="h-[76px]"></div>}
+      {showSticky && <div className="h-[90px]"></div>}
     </div>
   );
 };

@@ -135,7 +135,7 @@ export default function Home() {
                   href="https://drive.google.com/uc?export=download&id=13A1U4y-4Dy7Y3Ah_NR2SDI5dEJLLbjU6"
                   download
                   className="mt-6 inline-block bg-primary px-6 py-6 rounded-full font-semibold shadow transition"
-                >
+                > 
                   Download Company Profile
                 </a>
               </Button>

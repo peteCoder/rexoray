@@ -5,6 +5,8 @@ import { ThemeProvider } from "@/components/main/theme-provider";
 import Footer from "@/components/main/Footer";
 import Navbar from "@/components/main/Navbar";
 import { Toaster } from "@/components/ui/sonner";
+import { ModeToggle } from "@/components/main/mode-toggler";
+import LiveChatAndWhatsapp from "@/components/main/LiveChatAndWhatsapp";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,10 +43,16 @@ export default function RootLayout({
         >
           <Navbar />
           <Toaster />
+
+          <div className="fixed bottom-3 z-[2000] right-3 -translate-y-1/2 ">
+            <ModeToggle />
+          </div>
           <main>
             {children}
             <Footer />
           </main>
+
+          <LiveChatAndWhatsapp />
         </ThemeProvider>
       </body>
     </html>

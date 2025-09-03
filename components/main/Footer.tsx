@@ -24,8 +24,11 @@ const Footer = () => {
           <div>
             <Image
               src={LogoLight}
+              width={400}
+              height={400}
               alt="REXORAY ACE Logo"
-              className="w-32 mb-4"
+              // className="w-40 mb-4"
+              className="h-20 mb-5"
             />
             <p className="text-gray-400 dark:text-gray-300 text-sm">
               REXORAY ACE LTD is committed to delivering excellence across
