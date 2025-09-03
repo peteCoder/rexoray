@@ -9,6 +9,7 @@ import { Button } from "../ui/button";
 import { formatNumber } from "@/lib/utils";
 import { Project } from "@/lib/types";
 import RevealOnScroll from "./RevealOnScroll";
+import Heading from "./Heading";
 
 export default function ProjectsSection() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -40,15 +41,10 @@ export default function ProjectsSection() {
     <section id="projects" className="py-16 bg-gray-50 dark:bg-gray-900">
       <div className="container mx-auto px-4 text-center">
         <RevealOnScroll>
-          <h2 className="text-3xl sm:text-4xl font-bold uppercase mb-6 dark:text-white">
-            Our Projects
-          </h2>
-        </RevealOnScroll>
-        <RevealOnScroll>
-          <p className="text-gray-600 max-w-2xl mx-auto mb-12 dark:text-gray-300">
-            Explore some of our recent and notable works that showcase our
-            expertise and commitment to excellence.
-          </p>
+          <Heading
+            title="Our Projects"
+            text=" Explore some of our recent and notable works that showcase our and commitment to excellence."
+          />
         </RevealOnScroll>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {loading
