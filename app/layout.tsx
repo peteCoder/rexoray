@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/main/theme-provider";
 import Footer from "@/components/main/Footer";
 import Navbar from "@/components/main/Navbar";
 import { Toaster } from "@/components/ui/sonner";
-import { ModeToggle } from "@/components/main/mode-toggler";
 import LiveChatAndWhatsapp from "@/components/main/LiveChatAndWhatsapp";
+import CursorFollower from "@/components/main/CursorFollower";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,30 +29,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      {/* suppressHydrationWarning */}
+    <html lang="en" className="dark">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Navbar />
-          <Toaster />
+        <CursorFollower />
+        <Navbar />
+        <Toaster />
 
-          <div className="fixed bottom-3 z-[2000] right-3 -translate-y-1/2 ">
-            <ModeToggle />
-          </div>
-          <main>
-            {children}
-            <Footer />
-          </main>
+        <main>
+          {children}
+          <Footer />
+        </main>
 
-          <LiveChatAndWhatsapp />
-        </ThemeProvider>
+        <LiveChatAndWhatsapp />
       </body>
     </html>
   );

@@ -15,144 +15,107 @@ import LogoLight from "@/assets/logo_light.png";
 import Image from "next/image";
 import RevealOnScroll from "./RevealOnScroll";
 
+const QUICK_LINKS = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/services", label: "Services" },
+  { href: "/projects", label: "Projects" },
+  { href: "/contact", label: "Contact" },
+];
+
+const SOCIALS = [
+  { href: companyInfo.socialMedia.facebook, icon: FaFacebook, label: "Facebook" },
+  { href: companyInfo.socialMedia.instagram, icon: FaInstagram, label: "Instagram" },
+  { href: companyInfo.socialMedia.twitter, icon: FaTwitter, label: "Twitter" },
+  { href: companyInfo.socialMedia.whatsapp, icon: FaWhatsapp, label: "WhatsApp" },
+  { href: companyInfo.socialMedia.gmail, icon: FaGooglePlusG, label: "Google" },
+].filter((social) => social.href);
+
 const Footer = () => {
   return (
-    <footer className="bg-[#292929] dark:bg-gray-900 text-white p-8 rounded-t-2xl dark:rounded-t-none">
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
-        {/* Logo & Description */}
-        <RevealOnScroll>
-          <div>
-            <Image
-              src={LogoLight}
-              width={1000}
-              height={1000}
-              alt="REXORAY ACE Logo"
-              // className="w-40 mb-4"
-              className="w-50 sm:w-60 md:w-90 mb-5"
-            />
-            <p className="text-gray-400 dark:text-gray-300 text-sm">
-              REXORAY ACE LTD is committed to delivering excellence across
-              industries, from construction to energy, agriculture, and more.
-            </p>
-          </div>
-        </RevealOnScroll>
-        <RevealOnScroll>
-          <div>
-            <h3 className="text-lg font-semibold mb-4 dark:text-white">
-              Contact Us
-            </h3>
-            <p className="text-gray-400 dark:text-gray-300 text-sm">
-              {companyInfo.address}
-            </p>
-            <p className="text-gray-400 dark:text-gray-300 text-sm mt-2">
-              Email:{" "}
-              <a
-                href="mailto:info@rexorayace.com"
-                className="hover:text-primary transition"
-              >
-                {companyInfo.emails[0]}
-              </a>
-            </p>
-            <p className="text-gray-400 dark:text-gray-300 text-sm mt-2">
-              Phone: {companyInfo.phoneNumber}
-            </p>
-          </div>
-        </RevealOnScroll>
-
-        {/* Quick Links */}
-        <RevealOnScroll>
-          <div>
-            <h3 className="text-lg font-semibold mb-4 dark:text-white">
-              Quick Links
-            </h3>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link
-                  href="/"
-                  className="hover:text-primary transition dark:text-gray-300"
-                >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/about"
-                  className="hover:text-primary transition dark:text-gray-300"
-                >
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/projects"
-                  className="hover:text-primary transition dark:text-gray-300"
-                >
-                  Projects
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="hover:text-primary transition dark:text-gray-300"
-                >
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </RevealOnScroll>
-        <RevealOnScroll>
-          {/* Social Links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4 dark:text-white">
-              Follow Us
-            </h3>
-            <div className="flex space-x-4">
-              <a
-                href={companyInfo.socialMedia.facebook}
-                target="_blank"
-                className="bg-white/10 dark:bg-gray-700 p-2 rounded-full hover:bg-primary transition"
-              >
-                <FaFacebook size={20} />
-              </a>
-              <a
-                href={companyInfo.socialMedia.instagram}
-                target="_blank"
-                className="bg-white/10 dark:bg-gray-700 p-2 rounded-full hover:bg-primary transition"
-              >
-                <FaInstagram size={20} />
-              </a>
-              <a
-                href={companyInfo.socialMedia.twitter}
-                target="_blank"
-                className="bg-white/10 dark:bg-gray-700 p-2 rounded-full hover:bg-primary transition"
-              >
-                <FaTwitter size={20} />
-              </a>
-              <a
-                href={companyInfo.socialMedia.linkedin}
-                target="_blank"
-                className="bg-white/10 dark:bg-gray-700 p-2 rounded-full hover:bg-primary transition"
-              >
-                <FaWhatsapp size={20} />
-              </a>
-              <a
-                href={companyInfo.socialMedia.gmail}
-                target="_blank"
-                className="bg-white/10 dark:bg-gray-700 p-2 rounded-full hover:bg-primary transition"
-              >
-                <FaGooglePlusG size={20} />
-              </a>
+    <footer className="border-t border-white/10 bg-black">
+      <div className="container mx-auto px-6 py-16">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
+          <RevealOnScroll>
+            <div>
+              <Image src={LogoLight} alt="REXORAY ACE" className="h-12 w-auto" />
+              <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/50">
+                Delivering excellence across construction, energy, agriculture,
+                and more — one dependable partner for every sector.
+              </p>
+              {SOCIALS.length > 0 && (
+                <div className="mt-6 flex gap-3">
+                  {SOCIALS.map(({ href, icon: Icon, label }) => (
+                    <a
+                      key={label}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={label}
+                      className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/60 transition-colors hover:border-primary hover:text-primary"
+                    >
+                      <Icon size={15} />
+                    </a>
+                  ))}
+                </div>
+              )}
             </div>
+          </RevealOnScroll>
+
+          <RevealOnScroll>
+            <div>
+              <h3 className="text-xs uppercase tracking-widest text-white/40">
+                Quick Links
+              </h3>
+              <ul className="mt-5 space-y-3 text-sm">
+                {QUICK_LINKS.map(({ href, label }) => (
+                  <li key={href}>
+                    <Link
+                      href={href}
+                      className="text-white/60 transition-colors hover:text-primary"
+                    >
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </RevealOnScroll>
+
+          <RevealOnScroll>
+            <div>
+              <h3 className="text-xs uppercase tracking-widest text-white/40">
+                Contact
+              </h3>
+              <ul className="mt-5 space-y-3 text-sm text-white/60">
+                <li>{companyInfo.address}</li>
+                <li>
+                  <a
+                    href={`mailto:${companyInfo.emails[0]}`}
+                    className="transition-colors hover:text-primary"
+                  >
+                    {companyInfo.emails[0]}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`tel:${companyInfo.phoneNumber}`}
+                    className="transition-colors hover:text-primary"
+                  >
+                    {companyInfo.phoneNumber}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </RevealOnScroll>
+        </div>
+
+        <RevealOnScroll>
+          <div className="mt-14 border-t border-white/10 pt-6 text-center text-sm text-white/40">
+            © {new Date().getFullYear()} REXORAY ACE LTD. All Rights Reserved.
           </div>
         </RevealOnScroll>
       </div>
-      <RevealOnScroll>
-        {/* Bottom Bar */}
-        <div className="border-t border-white/10 dark:border-gray-700 mt-10 pt-4 text-center text-gray-500 dark:text-gray-400 text-sm">
-          © {new Date().getFullYear()} REXORAY ACE LTD. All Rights Reserved.
-        </div>
-      </RevealOnScroll>
     </footer>
   );
 };

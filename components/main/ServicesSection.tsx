@@ -1,59 +1,16 @@
-import {
-  Briefcase,
-  Building,
-  Factory,
-  Leaf,
-  Truck,
-  Calendar,
-} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { services } from "@/lib/services";
 import Heading from "./Heading";
 import RevealOnScroll from "./RevealOnScroll";
 
-const services = [
-  {
-    icon: <Building className="w-10 h-10 text-primary" />,
-    title: "General Contracting",
-    description:
-      "Delivering top-quality construction and infrastructure solutions with precision and professionalism.",
-  },
-  {
-    icon: <Factory className="w-10 h-10 text-primary" />,
-    title: "Manufacturing",
-    description:
-      "Innovative manufacturing processes to meet diverse industrial and commercial needs.",
-  },
-  {
-    icon: <Leaf className="w-10 h-10 text-primary" />,
-    title: "Agriculture",
-    description:
-      "Sustainable agricultural projects designed to boost food production and economic growth.",
-  },
-  {
-    icon: <Truck className="w-10 h-10 text-primary" />,
-    title: "Transportation",
-    description:
-      "Efficient logistics and transportation services ensuring timely and safe delivery.",
-  },
-  {
-    icon: <Briefcase className="w-10 h-10 text-primary" />,
-    title: "Petroleum Marketing",
-    description:
-      "Reliable petroleum supply and distribution services tailored to your energy needs.",
-  },
-  {
-    icon: <Calendar className="w-10 h-10 text-primary" />,
-    title: "Event Management",
-    description:
-      "Creating unforgettable events with seamless planning and flawless execution.",
-  },
-];
+const featured = services.filter((service) => service.highlight);
 
 const ServicesSection = () => {
   return (
-    <section id="services" className="py-16 bg-white dark:bg-gray-900">
+    <section id="services" className="border-t border-white/10 bg-black py-16 md:py-24">
       <div className="container mx-auto px-4 text-center">
-        {/* Section Heading */}
-
         <RevealOnScroll>
           <Heading
             title="Our Services"
@@ -62,23 +19,51 @@ const ServicesSection = () => {
           />
         </RevealOnScroll>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <RevealOnScroll
-              key={index}
-              className="group bg-gray-50 dark:bg-gray-800 p-8 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-transparent hover:border-primary cursor-pointer"
-            >
-              <div className="mb-4 flex justify-center">{service.icon}</div>
-              <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors dark:text-white">
-                {service.title}
-              </h3>
-              <p className="text-gray-600 text-sm dark:text-gray-300">
-                {service.description}
-              </p>
-            </RevealOnScroll>
-          ))}
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {featured.map((service) => {
+            const Icon = service.icon;
+            return (
+              <RevealOnScroll key={service.slug}>
+                <Link
+                  href={`/services/${service.slug}`}
+                  className="group block h-full overflow-hidden border border-white/10 text-left transition-colors hover:border-primary"
+                >
+                  <div className="relative aspect-video w-full overflow-hidden">
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute -bottom-6 left-6 flex h-12 w-12 items-center justify-center rounded-full border border-primary/40 bg-black">
+                      <Icon className="h-5 w-5 text-primary" />
+                    </div>
+                  </div>
+                  <div className="p-6 pt-10">
+                    <h3 className="text-xl font-light text-white transition-colors group-hover:text-primary">
+                      {service.title}
+                    </h3>
+                    <p className="mt-3 text-sm text-white/50">
+                      {service.tagline}
+                    </p>
+                  </div>
+                </Link>
+              </RevealOnScroll>
+            );
+          })}
         </div>
+
+        <RevealOnScroll>
+          <div className="mt-10">
+            <Link
+              href="/services"
+              className="inline-flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-primary"
+            >
+              View all services
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </RevealOnScroll>
       </div>
     </section>
   );

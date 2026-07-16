@@ -2,14 +2,14 @@ import RevealOnScroll from "./RevealOnScroll";
 
 const Heading = ({ title, text }: { title: string; text: string }) => {
   return (
-    <div className="text-center md:text-left container mx-auto mb-5">
+    <div className="container mx-auto mb-10 text-center md:text-left">
       <RevealOnScroll>
-        <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold mt-6 mb-3 uppercase inline-block relative after:absolute after:h-2 after:w-20 after:bg-primary after:left-0 after:bottom-0 dark:text-white">
+        <h2 className="text-3xl font-light text-white sm:text-4xl md:text-5xl">
           {title}
         </h2>
       </RevealOnScroll>
       <RevealOnScroll>
-        <p className="max-w-3xl dark:text-gray-300">{text}</p>
+        <p className="mx-auto mt-4 max-w-3xl text-white/60 md:mx-0">{text}</p>
       </RevealOnScroll>
     </div>
   );

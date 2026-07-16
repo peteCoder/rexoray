@@ -41,73 +41,43 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+/* Single permanent theme: pure black, matching the Rexoray Ace monochrome
+   mark. Applied via :root (no light palette, no .dark override needed for
+   these tokens) — the `dark` class is still hardcoded on <html> so the many
+   existing dark: utility classes across components keep resolving. */
 :root {
   --radius: 0.65rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.141 0.005 285.823);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.141 0.005 285.823);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.141 0.005 285.823);
+  --background: oklch(0 0 0);
+  --foreground: oklch(0.97 0 0);
+  --card: oklch(0.12 0 0);
+  --card-foreground: oklch(0.97 0 0);
+  --popover: oklch(0.12 0 0);
+  --popover-foreground: oklch(0.97 0 0);
   --primary: oklch(0.795 0.184 86.047);
-  --primary-foreground: oklch(0.421 0.095 57.708);
-  --secondary: oklch(0.967 0.001 286.375);
-  --secondary-foreground: oklch(0.21 0.006 285.885);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.967 0.001 286.375);
-  --accent-foreground: oklch(0.21 0.006 285.885);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.92 0.004 286.32);
-  --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.795 0.184 86.047);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.141 0.005 285.823);
-  --sidebar-primary: oklch(0.795 0.184 86.047);
-  --sidebar-primary-foreground: oklch(0.421 0.095 57.708);
-  --sidebar-accent: oklch(0.967 0.001 286.375);
-  --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
-  --sidebar-border: oklch(0.92 0.004 286.32);
-  --sidebar-ring: oklch(0.795 0.184 86.047);
-}
-
-.dark {
-  --background: oklch(0.141 0.005 285.823);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.21 0.006 285.885);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.21 0.006 285.885);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.795 0.184 86.047);
-  --primary-foreground: oklch(0.421 0.095 57.708);
-  --secondary: oklch(0.274 0.006 286.033);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent: oklch(0.274 0.006 286.033);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
+  --primary-foreground: oklch(0.15 0.02 86);
+  --secondary: oklch(0.18 0 0);
+  --secondary-foreground: oklch(0.97 0 0);
+  --muted: oklch(0.16 0 0);
+  --muted-foreground: oklch(0.65 0 0);
+  --accent: oklch(0.18 0 0);
+  --accent-foreground: oklch(0.97 0 0);
+  --destructive: oklch(0.65 0.22 25);
+  --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.554 0.135 66.442);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.21 0.006 285.885);
-  --sidebar-foreground: oklch(0.985 0 0);
+  --ring: oklch(0.795 0.184 86.047 / 50%);
+  --chart-1: oklch(0.795 0.184 86.047);
+  --chart-2: oklch(0.65 0 0);
+  --chart-3: oklch(0.5 0 0);
+  --chart-4: oklch(0.35 0 0);
+  --chart-5: oklch(0.25 0 0);
+  --sidebar: oklch(0.08 0 0);
+  --sidebar-foreground: oklch(0.97 0 0);
   --sidebar-primary: oklch(0.795 0.184 86.047);
-  --sidebar-primary-foreground: oklch(0.421 0.095 57.708);
-  --sidebar-accent: oklch(0.274 0.006 286.033);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-primary-foreground: oklch(0.15 0.02 86);
+  --sidebar-accent: oklch(0.18 0 0);
+  --sidebar-accent-foreground: oklch(0.97 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.554 0.135 66.442);
+  --sidebar-ring: oklch(0.795 0.184 86.047 / 50%);
 }
 
 @layer base {
@@ -117,4 +87,84 @@
   body {
     @apply bg-background text-foreground overflow-x-hidden scroll-smooth;
   }
+}
+
+/* Rexoray Ace runs a single permanent black theme (no light/dark toggle).
+   The site's components were built with Tailwind's default gray-* palette
+   (which has a cool/blue undertone). These rules repaint every gray-* shade
+   actually used across the app to a true neutral (zero-chroma) scale so
+   panels read as genuine black/silver instead of cool-tinted dark gray.
+   Written as plain selectors (matching Tailwind's own utility specificity)
+   rather than @theme overrides: redefining --color-gray-* inside the
+   generated theme breaks `@apply border-border` and empties the stylesheet
+   in this Tailwind v4 + Next setup. */
+@layer utilities {
+  .bg-gray-50 { background-color: oklch(0.98 0 0); }
+  .dark .dark\:bg-gray-50 { background-color: oklch(0.98 0 0); }
+  .bg-gray-100 { background-color: oklch(0.94 0 0); }
+  .dark .dark\:bg-gray-100 { background-color: oklch(0.94 0 0); }
+  .bg-gray-200 { background-color: oklch(0.87 0 0); }
+  .dark .dark\:bg-gray-200 { background-color: oklch(0.87 0 0); }
+  .bg-gray-300 { background-color: oklch(0.78 0 0); }
+  .dark .dark\:bg-gray-300 { background-color: oklch(0.78 0 0); }
+  .bg-gray-400 { background-color: oklch(0.65 0 0); }
+  .dark .dark\:bg-gray-400 { background-color: oklch(0.65 0 0); }
+  .bg-gray-500 { background-color: oklch(0.53 0 0); }
+  .dark .dark\:bg-gray-500 { background-color: oklch(0.53 0 0); }
+  .bg-gray-600 { background-color: oklch(0.43 0 0); }
+  .dark .dark\:bg-gray-600 { background-color: oklch(0.43 0 0); }
+  .bg-gray-700 { background-color: oklch(0.32 0 0); }
+  .dark .dark\:bg-gray-700 { background-color: oklch(0.32 0 0); }
+  .bg-gray-800 { background-color: oklch(0.2 0 0); }
+  .dark .dark\:bg-gray-800 { background-color: oklch(0.2 0 0); }
+  .bg-gray-900 { background-color: oklch(0.14 0 0); }
+  .dark .dark\:bg-gray-900 { background-color: oklch(0.14 0 0); }
+  .bg-gray-950 { background-color: oklch(0.08 0 0); }
+  .dark .dark\:bg-gray-950 { background-color: oklch(0.08 0 0); }
+
+  .text-gray-50 { color: oklch(0.98 0 0); }
+  .dark .dark\:text-gray-50 { color: oklch(0.98 0 0); }
+  .text-gray-100 { color: oklch(0.94 0 0); }
+  .dark .dark\:text-gray-100 { color: oklch(0.94 0 0); }
+  .text-gray-200 { color: oklch(0.87 0 0); }
+  .dark .dark\:text-gray-200 { color: oklch(0.87 0 0); }
+  .text-gray-300 { color: oklch(0.78 0 0); }
+  .dark .dark\:text-gray-300 { color: oklch(0.78 0 0); }
+  .text-gray-400 { color: oklch(0.65 0 0); }
+  .dark .dark\:text-gray-400 { color: oklch(0.65 0 0); }
+  .text-gray-500 { color: oklch(0.53 0 0); }
+  .dark .dark\:text-gray-500 { color: oklch(0.53 0 0); }
+  .text-gray-600 { color: oklch(0.43 0 0); }
+  .dark .dark\:text-gray-600 { color: oklch(0.43 0 0); }
+  .text-gray-700 { color: oklch(0.32 0 0); }
+  .dark .dark\:text-gray-700 { color: oklch(0.32 0 0); }
+  .text-gray-800 { color: oklch(0.2 0 0); }
+  .dark .dark\:text-gray-800 { color: oklch(0.2 0 0); }
+  .text-gray-900 { color: oklch(0.14 0 0); }
+  .dark .dark\:text-gray-900 { color: oklch(0.14 0 0); }
+  .text-gray-950 { color: oklch(0.08 0 0); }
+  .dark .dark\:text-gray-950 { color: oklch(0.08 0 0); }
+
+  .border-gray-50 { border-color: oklch(0.98 0 0); }
+  .dark .dark\:border-gray-50 { border-color: oklch(0.98 0 0); }
+  .border-gray-100 { border-color: oklch(0.94 0 0); }
+  .dark .dark\:border-gray-100 { border-color: oklch(0.94 0 0); }
+  .border-gray-200 { border-color: oklch(0.87 0 0); }
+  .dark .dark\:border-gray-200 { border-color: oklch(0.87 0 0); }
+  .border-gray-300 { border-color: oklch(0.78 0 0); }
+  .dark .dark\:border-gray-300 { border-color: oklch(0.78 0 0); }
+  .border-gray-400 { border-color: oklch(0.65 0 0); }
+  .dark .dark\:border-gray-400 { border-color: oklch(0.65 0 0); }
+  .border-gray-500 { border-color: oklch(0.53 0 0); }
+  .dark .dark\:border-gray-500 { border-color: oklch(0.53 0 0); }
+  .border-gray-600 { border-color: oklch(0.43 0 0); }
+  .dark .dark\:border-gray-600 { border-color: oklch(0.43 0 0); }
+  .border-gray-700 { border-color: oklch(0.32 0 0); }
+  .dark .dark\:border-gray-700 { border-color: oklch(0.32 0 0); }
+  .border-gray-800 { border-color: oklch(0.2 0 0); }
+  .dark .dark\:border-gray-800 { border-color: oklch(0.2 0 0); }
+  .border-gray-900 { border-color: oklch(0.14 0 0); }
+  .dark .dark\:border-gray-900 { border-color: oklch(0.14 0 0); }
+  .border-gray-950 { border-color: oklch(0.08 0 0); }
+  .dark .dark\:border-gray-950 { border-color: oklch(0.08 0 0); }
 }

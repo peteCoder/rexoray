@@ -1,37 +1,30 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 import { Project } from "@/lib/types";
-import { formatNumber } from "@/lib/utils";
 import RevealOnScroll from "@/components/main/RevealOnScroll";
 
 export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
+  const [active, setActive] = useState(0);
 
-  // Pagination states
-  const [page, setPage] = useState(1);
-  const limit = 6;
-  const [totalPages, setTotalPages] = useState(1);
+  const sectionRefs = useRef<Array<HTMLElement | null>>([]);
 
   useEffect(() => {
     const fetchProjects = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`/api/projects?page=${page}&limit=${limit}`, {
+        const res = await fetch(`/api/projects?page=1&limit=50`, {
           cache: "no-store",
         });
         if (!res.ok) throw new Error("Failed to fetch projects");
         const data = await res.json();
-        setProjects(data.projects);
-        setTotalPages(data.totalPages);
+        setProjects(data.projects ?? data);
       } catch (error) {
         console.error(error);
       } finally {
@@ -39,175 +32,134 @@ export default function Projects() {
       }
     };
     fetchProjects();
-  }, [page]);
+  }, []);
 
-  // Prevent body scroll when modal is open
+  // Track which slide is currently in view for the index indicator
   useEffect(() => {
-    document.body.style.overflow = selectedProject ? "hidden" : "";
-  }, [selectedProject]);
+    if (projects.length === 0) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const idx = sectionRefs.current.indexOf(
+              entry.target as HTMLElement
+            );
+            if (idx !== -1) setActive(idx);
+          }
+        });
+      },
+      { threshold: 0.6 }
+    );
+    sectionRefs.current.forEach((el) => el && observer.observe(el));
+    return () => observer.disconnect();
+  }, [projects]);
+
+  const scrollToIndex = (idx: number) => {
+    sectionRefs.current[idx]?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
+  if (loading) {
+    return (
+      <section className="flex min-h-[calc(100vh-73px)] items-center justify-center bg-black">
+        <div className="w-full max-w-4xl animate-pulse px-6">
+          <div className="mb-4 h-3 w-24 rounded bg-white/10" />
+          <div className="mb-10 h-16 w-2/3 rounded bg-white/10" />
+          <div className="aspect-[4/3] w-full rounded bg-white/10 sm:aspect-[16/9]" />
+        </div>
+      </section>
+    );
+  }
+
+  if (projects.length === 0) {
+    return (
+      <section className="flex min-h-[calc(100vh-73px)] items-center justify-center bg-black text-center">
+        <p className="text-white/50">No projects to show yet. Check back soon.</p>
+      </section>
+    );
+  }
 
   return (
-    <section id="projects" className="py-16 bg-gray-50 dark:bg-gray-900">
-      <div className="container mx-auto px-4 text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold uppercase mb-6 dark:text-white">
-          Our Projects
-        </h2>
+    <div className="snap-y snap-mandatory bg-black">
+      {projects.map((project, index) => (
+        <section
+          key={project._id}
+          ref={(el) => {
+            sectionRefs.current[index] = el;
+          }}
+          className="relative flex min-h-[calc(100vh-73px)] snap-start items-center border-b border-white/5 py-16"
+        >
+          <div className="container mx-auto grid grid-cols-1 items-center gap-10 px-6 md:grid-cols-2 md:gap-16">
+            {/* Title + meta */}
+            <RevealOnScroll>
+              <Link href={`/projects/${project._id}`} className="group block">
+                <h2 className="text-4xl font-light leading-[1.08] text-white transition-colors group-hover:text-primary sm:text-5xl md:text-6xl">
+                  {project.title}
+                </h2>
+                {(project.location || project.status) && (
+                  <p className="mt-5 text-sm tracking-wide text-white/40">
+                    {[project.location, project.status]
+                      .filter(Boolean)
+                      .join(" · ")}
+                  </p>
+                )}
+                <span className="mt-6 inline-block text-sm text-white/50 underline-offset-4 transition-colors group-hover:text-primary group-hover:underline">
+                  View project
+                </span>
+              </Link>
+            </RevealOnScroll>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {loading
-            ? // Skeleton Loader (same card structure)
-              [...Array(limit)].map((_, i) => (
-                <div
-                  key={i}
-                  className="animate-pulse bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg"
-                >
-                  <div className="w-full h-64 bg-gray-300 dark:bg-gray-600"></div>
-                  <div className="p-4">
-                    <div className="h-4 bg-gray-300 dark:bg-gray-600 rounded w-3/4 mb-3"></div>
-                    <div className="h-3 bg-gray-300 dark:bg-gray-600 rounded w-1/2"></div>
-                  </div>
-                </div>
-              ))
-            : // Actual project cards
-              projects.map((project) => (
-                <RevealOnScroll
-                  key={project._id}
-                  className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg cursor-pointer group"
-                  onClick={() => setSelectedProject(project)}
-                >
-                  <div className="relative overflow-hidden">
-                    <Image
-                      src={project.bannerImage}
-                      alt={project.title}
-                      width={1000}
-                      height={1000}
-                      className="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                      <h3 className="text-white text-xl font-bold">
-                        {project.title}
-                      </h3>
-                    </div>
-                  </div>
-                  <div className="p-4 text-left">
-                    <h4 className="text-lg font-semibold dark:text-white mb-2">
-                      {project.title}
-                    </h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
-                      {project.description}
-                    </p>
-                  </div>
-                </RevealOnScroll>
-              ))}
-        </div>
-
-        {/* Pagination */}
-        {!loading && projects.length > 0 && (
-          <div className="flex justify-center items-center mt-8 space-x-2">
-            <button
-              className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
-              onClick={() => setPage((prev) => prev - 1)}
-              disabled={page === 1}
-            >
-              Prev
-            </button>
-            <span className="px-4 py-2">
-              Page {page} of {totalPages}
-            </span>
-            <button
-              className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
-              onClick={() => setPage((prev) => prev + 1)}
-              disabled={page === totalPages}
-            >
-              Next
-            </button>
-          </div>
-        )}
-
-        {/* No Projects */}
-        {!loading && projects.length === 0 && (
-          <p className="text-gray-500 mt-6">No projects found.</p>
-        )}
-
-        {/* Modal */}
-        <AnimatePresence>
-          {selectedProject && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/70 flex items-center justify-center z-[5000] p-4"
-              onClick={() => setSelectedProject(null)}
-            >
-              <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                className="bg-white dark:bg-gray-950 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto relative"
-                onClick={(e) => e.stopPropagation()}
+            {/* Image */}
+            <RevealOnScroll>
+              <Link
+                href={`/projects/${project._id}`}
+                className="relative block aspect-[4/3] w-full overflow-hidden"
               >
-                <button
-                  className="absolute top-4 right-4"
-                  onClick={() => setSelectedProject(null)}
-                >
-                  <X className="w-6 h-6" />
-                </button>
                 <Image
-                  src={selectedProject.bannerImage}
-                  alt={selectedProject.title}
-                  width={1000}
-                  height={1000}
-                  className="w-full h-64 object-cover rounded-t-lg"
+                  src={project.bannerImage}
+                  alt={project.title}
+                  fill
+                  className="object-cover transition-transform duration-700 hover:scale-105"
                 />
-                <div className="p-6 text-left">
-                  <h3 className="text-2xl font-bold mb-4">
-                    {selectedProject.title}
-                  </h3>
-                  <p className="text-gray-700 dark:text-gray-300 mb-4">
-                    {selectedProject.description}
-                  </p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
-                    <strong>Start:</strong> {selectedProject.startDate} |{" "}
-                    <strong>End:</strong> {selectedProject.endDate}
-                  </p>
-                  {selectedProject.client && (
-                    <p>
-                      <strong>Client:</strong> {selectedProject.client}
-                    </p>
-                  )}
-                  {selectedProject.location && (
-                    <p>
-                      <strong>Location:</strong> {selectedProject.location}
-                    </p>
-                  )}
-                  {selectedProject.status && (
-                    <p>
-                      <strong>Status:</strong> {selectedProject.status}
-                    </p>
-                  )}
-                  {selectedProject.budget && (
-                    <p>
-                      <strong>Budget:</strong>{" "}
-                      <span>{selectedProject?.currency}</span>
-                      <span>{formatNumber(selectedProject.budget)}</span>
-                    </p>
-                  )}
-                </div>
+              </Link>
+            </RevealOnScroll>
+          </div>
 
-                <div className="flex justify-center items-center my-5">
-                  <Button asChild>
-                    <Link href={`/projects/${selectedProject._id}`}>
-                      View to Project
-                    </Link>
-                  </Button>
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </section>
+          {/* Index + tick, desktop only */}
+          <div className="absolute right-8 top-1/2 hidden -translate-y-1/2 flex-col items-center gap-3 lg:right-14 lg:flex">
+            <span className="text-xs tracking-widest text-white/50">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <span className="h-20 w-px bg-white/15" />
+          </div>
+        </section>
+      ))}
+
+      {/* Slide navigation controls */}
+      {projects.length > 1 && (
+        <div className="fixed bottom-8 right-6 z-10 hidden flex-col gap-2 lg:right-14 lg:flex">
+          <button
+            onClick={() => scrollToIndex(Math.max(0, active - 1))}
+            disabled={active === 0}
+            aria-label="Previous project"
+            className="rounded-full border border-white/15 p-2 text-white/60 transition hover:border-primary hover:text-primary disabled:opacity-30"
+          >
+            <ChevronUp className="h-4 w-4" />
+          </button>
+          <button
+            onClick={() =>
+              scrollToIndex(Math.min(projects.length - 1, active + 1))
+            }
+            disabled={active === projects.length - 1}
+            aria-label="Next project"
+            className="rounded-full border border-white/15 p-2 text-white/60 transition hover:border-primary hover:text-primary disabled:opacity-30"
+          >
+            <ChevronDown className="h-4 w-4" />
+          </button>
+        </div>
+      )}
+    </div>
   );
 }

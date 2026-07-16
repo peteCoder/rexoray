@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+      <defs>
+        <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%" gradientTransform="rotate(135 0.5 0.5)">
+          <stop offset="0%" stop-color="hsl(0 0% 2%)" />
+          <stop offset="45%" stop-color="hsl(49 35% 10%)" />
+          <stop offset="78%" stop-color="hsl(49 80% 30%)" />
+          <stop offset="100%" stop-color="hsl(49 95% 48%)" />
+        </linearGradient></defs>
+      <rect width="1600" height="900" fill="url(#bg)" />
+      <g><line x1="-120" y1="900" x2="380" y2="0" stroke="hsl(49 80% 65% / 0.09)" stroke-width="2"/><line x1="-30" y1="900" x2="470" y2="0" stroke="hsl(49 80% 65% / 0.09)" stroke-width="2"/><line x1="60" y1="900" x2="560" y2="0" stroke="hsl(49 80% 65% / 0.09)" stroke-width="2"/><line x1="150" y1="900" x2="650" y2="0" stroke="hsl(49 80% 65% / 0.09)" stroke-width="2"/><line x1="240" y1="900" x2="740" y2="0" stroke="hsl(49 80% 65% / 0.09)" stroke-width="2"/><line x1="330" y1="900" x2="830" y2="0" stroke="hsl(49 80% 65% / 0.09)" stroke-width="2"/></g>
+      <g transform="translate(992 126.00000000000001) scale(22)" fill="none" stroke="hsl(49 95% 70% / 0.22)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m11 17 2 2a1 1 0 1 0 3-3" /><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" /><path d="m21 3 1 11h-2" /><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3" /><path d="M3 4h8" />
+      </g>
+      <rect width="1600" height="900" fill="black" opacity="0.18" />
+    </svg>

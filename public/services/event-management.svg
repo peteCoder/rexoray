@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+      <defs>
+        <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%" gradientTransform="rotate(61 0.5 0.5)">
+          <stop offset="0%" stop-color="hsl(0 0% 2%)" />
+          <stop offset="45%" stop-color="hsl(59 35% 10%)" />
+          <stop offset="78%" stop-color="hsl(59 80% 30%)" />
+          <stop offset="100%" stop-color="hsl(59 95% 48%)" />
+        </linearGradient></defs>
+      <rect width="1600" height="900" fill="url(#bg)" />
+      <g><line x1="-120" y1="900" x2="380" y2="0" stroke="hsl(59 80% 65% / 0.09)" stroke-width="2"/><line x1="-30" y1="900" x2="470" y2="0" stroke="hsl(59 80% 65% / 0.09)" stroke-width="2"/><line x1="60" y1="900" x2="560" y2="0" stroke="hsl(59 80% 65% / 0.09)" stroke-width="2"/><line x1="150" y1="900" x2="650" y2="0" stroke="hsl(59 80% 65% / 0.09)" stroke-width="2"/><line x1="240" y1="900" x2="740" y2="0" stroke="hsl(59 80% 65% / 0.09)" stroke-width="2"/><line x1="330" y1="900" x2="830" y2="0" stroke="hsl(59 80% 65% / 0.09)" stroke-width="2"/></g>
+      <g transform="translate(992 126.00000000000001) scale(22)" fill="none" stroke="hsl(59 95% 70% / 0.22)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5.8 11.3 2 22l10.7-3.79" /><path d="M4 3h.01" /><path d="M22 8h.01" /><path d="M15 2h.01" /><path d="M22 20h.01" /><path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10" /><path d="m22 13-.82-.33c-.86-.34-1.82.2-1.98 1.11c-.11.7-.72 1.22-1.43 1.22H17" /><path d="m11 2 .33.82c.34.86-.2 1.82-1.11 1.98C9.52 4.9 9 5.52 9 6.23V7" /><path d="M11 13c1.93 1.93 2.83 4.17 2 5-.83.83-3.07-.07-5-2-1.93-1.93-2.83-4.17-2-5 .83-.83 3.07.07 5 2Z" />
+      </g>
+      <rect width="1600" height="900" fill="black" opacity="0.18" />
+    </svg>

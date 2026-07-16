@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Autoplay from "embla-carousel-autoplay";
+import { ArrowRight } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -9,7 +10,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Button } from "@/components/ui/button";
 
 // Images
 import Carousel1 from "@/assets/carousel_1.webp";
@@ -52,7 +52,7 @@ const HomeCarousel = () => {
   );
 
   return (
-    <div className="w-full rounded-b-2xl overflow-hidden cursor-pointer relative">
+    <div className="relative w-full cursor-pointer overflow-hidden">
       <Carousel
         plugins={[plugin.current]}
         onMouseEnter={plugin.current.stop}
@@ -60,37 +60,37 @@ const HomeCarousel = () => {
       >
         <CarouselContent>
           {slides.map((slide, index) => (
-            <CarouselItem key={index} className="w-full h-[500px] relative">
+            <CarouselItem key={index} className="relative h-[560px] w-full sm:h-[640px]">
               <Image
                 src={slide.img}
                 alt={`Slide ${index + 1}`}
                 width={1000}
                 height={1000}
-                className="w-full h-full object-cover"
+                className="h-full w-full object-cover"
+                priority={index === 0}
               />
 
               {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent dark:from-black/80 dark:to-black/30 flex items-center">
-                <div className="max-w-3xl px-6 md:px-12 lg:px-20 text-white dark:text-gray-200">
+              <div className="absolute inset-0 flex items-center bg-gradient-to-t from-black/85 via-black/40 to-black/10">
+                <div className="max-w-3xl px-6 text-white md:px-12 lg:px-20">
                   <RevealOnScroll>
-                    <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4 leading-tight dark:text-white">
+                    <h2 className="mb-5 text-3xl font-light leading-tight sm:text-4xl md:text-6xl">
                       {slide.title}
                     </h2>
                   </RevealOnScroll>
                   <RevealOnScroll>
-                    <p className="text-sm sm:text-base md:text-lg mb-6 opacity-90 dark:opacity-80">
+                    <p className="mb-8 text-sm text-white/70 sm:text-base md:text-lg">
                       {slide.description}
                     </p>
                   </RevealOnScroll>
                   <RevealOnScroll>
-                    <Button size="lg" asChild>
-                      <Link
-                        className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold rounded-full px-6 dark:bg-yellow-400 dark:hover:bg-yellow-500 dark:text-black"
-                        href={slide.href}
-                      >
-                        {slide.cta}
-                      </Link>
-                    </Button>
+                    <Link
+                      href={slide.href}
+                      className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
+                    >
+                      {slide.cta}
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
                   </RevealOnScroll>
                 </div>
               </div>
@@ -98,8 +98,8 @@ const HomeCarousel = () => {
           ))}
         </CarouselContent>
 
-        <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/60 hover:bg-white rounded-full p-2 shadow dark:bg-gray-800/60 dark:hover:bg-gray-800 dark:text-white" />
-        <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/60 hover:bg-white rounded-full p-2 shadow dark:bg-gray-800/60 dark:hover:bg-gray-800 dark:text-white" />
+        <CarouselPrevious className="absolute left-4 top-1/2 z-10 h-10 w-10 -translate-y-1/2 rounded-full border border-white/20 bg-black/40 text-white transition-colors hover:border-primary hover:bg-black/60 hover:text-primary" />
+        <CarouselNext className="absolute right-4 top-1/2 z-10 h-10 w-10 -translate-y-1/2 rounded-full border border-white/20 bg-black/40 text-white transition-colors hover:border-primary hover:bg-black/60 hover:text-primary" />
       </Carousel>
     </div>
   );
