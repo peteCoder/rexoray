@@ -10,9 +10,6 @@ const nextConfig: NextConfig = {
         hostname: "cdn.sanity.io",
       },
     ],
-    // Locally generated service banners are SVG; safe since we control the content.
-    dangerouslyAllowSVG: true,
-    contentDispositionType: "inline",
   },
 };
 

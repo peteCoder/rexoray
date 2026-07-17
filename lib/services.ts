@@ -370,7 +370,7 @@ const rawServices: Omit<ServiceInfo, "image">[] = [
 
 export const services: ServiceInfo[] = rawServices.map((service) => ({
   ...service,
-  image: `/services/${service.slug}.svg`,
+  image: `/services/${service.slug}.jpg`,
 }));
 
 export const getServiceBySlug = (slug: string) =>
